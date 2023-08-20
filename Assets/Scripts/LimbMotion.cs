@@ -13,8 +13,11 @@ public class LimbMotion : MonoBehaviour
     LineRenderer lineRenderer;
     [SerializeField]
     float tollerance = 0.15f;
-    [SerializeField]
+    [SerializeField, InfoBox("Offset to Alternate the limb movements")]
     Vector3 offset = Vector3.zero;
+    [SerializeField, InfoBox("Offset for the raycast to start from. Aka ")]
+    Vector3 rayCastOffset = Vector3.zero;
+
 
     //Target that the limb will try to reach
     [SerializeField]
@@ -23,18 +26,17 @@ public class LimbMotion : MonoBehaviour
     //Current position of the Limb
     private Vector3 worldEndPosition;
 
-    int layer_mask;
+    public Vector3 CurrentPosition => worldEndPosition;
 
     private void Awake()
     {
         //Get last point in the line renderer and save the world position. Assuming the last is the end effector.
         worldEndPosition = WorldTarget;
-        layer_mask = LayerMask.GetMask("Walkable");
     }
 
     private void Update()
     {
-        Ray ray = new Ray(WorldTarget, Vector3.down);
+        Ray ray = new Ray(WorldTarget + rayCastOffset, Vector3.down);
         //Keep end effector on the last position
         var newLocalPosition = transform.InverseTransformPoint(worldEndPosition);
 
@@ -49,7 +51,7 @@ public class LimbMotion : MonoBehaviour
             newLocalPosition = transform.InverseTransformPoint(WorldTarget);
 
             //Raycast to find the contact point for the limbs
-            if(Physics.Raycast(ray,out RaycastHit hit, 5, layer_mask))
+            if(Physics.Raycast(ray,out RaycastHit hit, 5, GlobalConstants.walkable_Mask))
             {
                 worldEndPosition = hit.point;
             }
@@ -64,7 +66,11 @@ public class LimbMotion : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawSphere(WorldTarget + offset, 0.05f);
+        Ray ray = new Ray(WorldTarget + rayCastOffset, Vector3.down);
+        if (Physics.Raycast(ray, out RaycastHit hit, 5, GlobalConstants.walkable_Mask))
+        {
+            Gizmos.DrawSphere(hit.point, 0.05f);
+        }
 
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(worldEndPosition, tollerance);

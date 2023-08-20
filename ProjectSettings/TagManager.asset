@@ -3,12 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Gif
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Walkable
+  - MouseTarget
   - Water
   - UI
   - 

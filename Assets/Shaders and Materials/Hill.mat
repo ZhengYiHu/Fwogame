@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Player
+  m_Name: Hill
   m_Shader: {fileID: -6465566751694194690, guid: 8e7eed26f02b5474a97146e20dee6fa5,
     type: 3}
   m_Parent: {fileID: 0}
@@ -129,9 +129,9 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _BaseColor: {r: 0.9622642, g: 0.6435165, b: 0.54013884, a: 1}
-    - _Color: {r: 0.764151, g: 0.53631395, b: 0.2198736, a: 1}
+    - _Color: {r: 0.246707, g: 0.40427822, b: 0.5283019, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _ShadowColor: {r: 0.22387859, g: 0.3679245, b: 0.34034124, a: 1}
-    - _ShadowHSV: {r: 0.41, g: 0.84, b: 1, a: 0}
+    - _ShadowHSV: {r: 0.93, g: 1.27, b: 0.73, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
