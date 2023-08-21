@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Rock
-  m_Shader: {fileID: -6465566751694194690, guid: 8e7eed26f02b5474a97146e20dee6fa5,
+  m_Shader: {fileID: -6465566751694194690, guid: 2a8cf7ec759f248b2a8a39c05b9f38bc,
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
