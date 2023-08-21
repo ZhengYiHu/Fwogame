@@ -9,6 +9,10 @@ public class CharacterController : MonoBehaviour
     float speed = 1.2f;
     [SerializeField, Foldout("Control")]
     float targetDistanceToStop = 1;
+    [SerializeField, Foldout("Control")]
+    float targetMaxVerticalDistance = 4;
+    [SerializeField, Foldout("Control")]
+    float climbableSurfaceAngle = 20;
     [SerializeField, Foldout("Head")]
     Vector3 targetOffset;
     [SerializeField, Foldout("Body")]
@@ -29,6 +33,9 @@ public class CharacterController : MonoBehaviour
     private Quaternion lastBodyRot;
 
     private Vector3 target => MouseController.targetPoint;
+    private Vector3 lookTarget => MouseController.lookTargetPoint;
+
+    const int VERTICAL_ANGLE_DEGREES = 90;
 
     /// <summary>
     /// Stores all the compounding changes of the body position in the current frame.
@@ -74,11 +81,11 @@ public class CharacterController : MonoBehaviour
     }
 
     /// <summary>
-    /// Rotate Body towards walking direction
+    /// Rotate Body towards target direction
     /// </summary>
     void RotateBody()
     {
-        body.LookAt(target + targetOffset);
+        body.LookAt(lookTarget + targetOffset);
     }
 
     /// <summary>
@@ -95,9 +102,21 @@ public class CharacterController : MonoBehaviour
     /// </summary>
     void FollowMouse()
     {
-        if(Vector3.Distance(transform.position, target) >= targetDistanceToStop)
+        if(isValidTarget())
         {
             transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
         }
+    }
+
+    /// <summary>
+    /// Check if mouse target is valid
+    /// </summary>
+    /// <returns>if the target is valid</returns>
+    bool isValidTarget()
+    {
+        bool targetNotReached = Vector3.Distance(transform.position, target) >= targetDistanceToStop;
+        bool targetInRange = Mathf.Abs(target.y - transform.position.y) < targetMaxVerticalDistance;
+        bool targetIsFlat = VERTICAL_ANGLE_DEGREES - (VERTICAL_ANGLE_DEGREES*Vector3.Dot(Vector3.up, MouseController.targetNormal)) <= climbableSurfaceAngle;
+        return targetNotReached && targetInRange && targetIsFlat;
     }
 }

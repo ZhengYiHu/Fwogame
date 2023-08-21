@@ -6,6 +6,8 @@ public class MouseController : MonoBehaviour
 {
     float rayMaxLength = 20f;
     static public Vector3 targetPoint;
+    static public Vector3 lookTargetPoint;
+    static public Vector3 targetNormal;
     static public Ray mouseRay;
     private void Update()
     {
@@ -14,7 +16,18 @@ public class MouseController : MonoBehaviour
 
         if (rayHits)
         {
-            targetPoint = raycastHit.point;
+            //Change movement target if button was clicked
+            if (Input.GetMouseButton(0))
+            {
+                targetPoint = raycastHit.point;
+                lookTargetPoint = raycastHit.point;
+                targetNormal = raycastHit.normal;
+            }
+            else
+            {
+                //Change look target
+                lookTargetPoint = raycastHit.point;
+            }
         }
 
     }
