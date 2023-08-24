@@ -27,9 +27,13 @@ public class CharacterController : MonoBehaviour
     float bodyFloatHeight = 0.2f;
     [SerializeField, Foldout("Limbs")]
     LimbMotion[] limbMotions;
+    [SerializeField]
+    ParticleSystem walkParticles;
 
+    [ShowNonSerializedField]
     private Vector3 velocity;
     private Vector3 lastBodyPos;
+    private Vector3 lastPos;
     private Quaternion lastBodyRot;
 
     private Vector3 target => MouseController.targetPoint;
@@ -46,19 +50,32 @@ public class CharacterController : MonoBehaviour
     {
         lastBodyPos = body.transform.position;
         lastBodyRot = body.transform.rotation;
+        lastPos = transform.position;
     }
 
     void FixedUpdate()
     {
         bodyPositionsBuffer = Vector3.zero;
-        velocity = transform.position - lastBodyPos;
+        
         FollowMouse();
         WobbleBody();
         FloatBody();
         LeanBody();
         RotateBody();
+        ShowWalkParticles();
+
+        //body position is in relation to the transform position. All buffered movements are summed up
         body.position = lastBodyPos + bodyPositionsBuffer;
         lastBodyPos = transform.position;
+        if(transform.position != lastPos)
+        {
+            velocity = (transform.position - lastPos);
+            lastPos = transform.position;
+        }
+        else
+        {
+            velocity = Vector3.zero;
+        }
     }
 
     /// <summary>
@@ -95,6 +112,23 @@ public class CharacterController : MonoBehaviour
     {
         //Add an extra offset
         bodyPositionsBuffer.y += bodyFloatHeight;
+    }
+
+    /// <summary>
+    /// Show walking particles if character is moving
+    /// </summary>
+    void ShowWalkParticles()
+    {
+        bool shouldPlayParticles = velocity.magnitude/Time.deltaTime > 0;
+        if (walkParticles.isPlaying == shouldPlayParticles) return;
+        if(shouldPlayParticles)
+        {
+            walkParticles.Play();
+        }
+        else
+        {
+            walkParticles.Stop();
+        }
     }
 
     /// <summary>

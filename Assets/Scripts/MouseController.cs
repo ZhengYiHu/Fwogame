@@ -16,18 +16,9 @@ public class MouseController : MonoBehaviour
 
         if (rayHits)
         {
-            //Change movement target if button was clicked
-            if (Input.GetMouseButton(0))
-            {
-                targetPoint = raycastHit.point;
-                lookTargetPoint = raycastHit.point;
-                targetNormal = raycastHit.normal;
-            }
-            else
-            {
-                //Change look target
-                lookTargetPoint = raycastHit.point;
-            }
+            targetPoint = raycastHit.point;
+            lookTargetPoint = raycastHit.point;
+            targetNormal = raycastHit.normal;
         }
 
     }

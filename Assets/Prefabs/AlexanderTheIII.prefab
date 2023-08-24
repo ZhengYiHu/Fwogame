@@ -990,7 +990,7 @@ ParticleSystem:
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 1
   looping: 1
-  prewarm: 0
+  prewarm: 1
   playOnAwake: 1
   useUnscaledTime: 0
   autoRandomSeed: 0
@@ -5937,7 +5937,7 @@ Transform:
   m_GameObject: {fileID: 5127038344878971263}
   serializedVersion: 2
   m_LocalRotation: {x: 0.000000029802312, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.20300011, z: 0.22100022}
+  m_LocalPosition: {x: 0, y: -0.203, z: 0.196}
   m_LocalScale: {x: 0.20000003, y: 0.2, z: 0.20000003}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6111,7 +6111,7 @@ Transform:
   m_GameObject: {fileID: 5261781400290788049}
   serializedVersion: 2
   m_LocalRotation: {x: 0.000000029802312, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.20479237, z: 0.21329992}
+  m_LocalPosition: {x: 0, y: -0.205, z: 0.188}
   m_LocalScale: {x: 0.20000003, y: 0.2, z: 0.20000003}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6670,6 +6670,7 @@ MonoBehaviour:
   - {fileID: 7919418116879198228}
   - {fileID: 5154471398758462680}
   - {fileID: 7878074351331888254}
+  walkParticles: {fileID: 638380986424411775}
 --- !u!1 &8487098408433502619
 GameObject:
   m_ObjectHideFlags: 0
