@@ -6,13 +6,21 @@ using UnityEngine;
 public class CharacterController : MonoBehaviour
 {
     [SerializeField, Foldout("Control")]
-    float speed = 1.2f;
+    float hSpeed = 1.2f;
+    [SerializeField, Foldout("Control")]
+    float vSpeed = 5.2f;
+    [SerializeField, Foldout("Control")]
+    float maxStepHeight = 0.3f;
     [SerializeField, Foldout("Control")]
     float targetDistanceToStop = 1;
     [SerializeField, Foldout("Control")]
     float targetMaxVerticalDistance = 4;
     [SerializeField, Foldout("Control")]
+    Vector3 heightDetectorOffset = new Vector3(0, 0.4f, 0.3f);
+    [SerializeField, Foldout("Control")]
     float climbableSurfaceAngle = 20;
+    [SerializeField, Foldout("Control")]
+    float groundedDistance = 0.3f;
     [SerializeField, Foldout("Head")]
     Vector3 targetOffset;
     [SerializeField, Foldout("Body")]
@@ -35,11 +43,15 @@ public class CharacterController : MonoBehaviour
     private Vector3 lastBodyPos;
     private Vector3 lastPos;
     private Quaternion lastBodyRot;
+    private Vector3 heightDetectorOrigin;
+    private RaycastHit hDetectorHit;
+    private RaycastHit groundHit;
+    private RaycastHit lastValidPoint;
 
     private Vector3 target => MouseController.targetPoint;
-    private Vector3 lookTarget => MouseController.lookTargetPoint;
 
     const int VERTICAL_ANGLE_DEGREES = 90;
+    const float MAX_RAY_LENGTH = 5;
 
     /// <summary>
     /// Stores all the compounding changes of the body position in the current frame.
@@ -56,10 +68,12 @@ public class CharacterController : MonoBehaviour
     void FixedUpdate()
     {
         bodyPositionsBuffer = Vector3.zero;
-        
+
+        IsGrounded();
+        PlaceHeighDetectorOrigin();
         FollowMouse();
+
         WobbleBody();
-        FloatBody();
         LeanBody();
         RotateBody();
         ShowWalkParticles();
@@ -76,6 +90,17 @@ public class CharacterController : MonoBehaviour
         {
             velocity = Vector3.zero;
         }
+    }
+
+    /// <summary>
+    /// Calculate if player is grounded
+    /// </summary>
+    /// <returns></returns>
+    bool IsGrounded()
+    {
+        Ray groundedRay = new Ray(transform.position, Vector3.down);
+        Physics.Raycast(groundedRay,out groundHit, MAX_RAY_LENGTH, GlobalConstants.walkable_Mask);
+        return Vector3.Distance(transform.position, groundHit.point) <= groundedDistance;
     }
 
     /// <summary>
@@ -102,18 +127,9 @@ public class CharacterController : MonoBehaviour
     /// </summary>
     void RotateBody()
     {
-        body.LookAt(lookTarget + targetOffset);
+        body.LookAt(target + targetOffset);
     }
-
-    /// <summary>
-    /// Keep Body afloat from the group level
-    /// </summary>
-    void FloatBody()
-    {
-        //Add an extra offset
-        bodyPositionsBuffer.y += bodyFloatHeight;
-    }
-
+  
     /// <summary>
     /// Show walking particles if character is moving
     /// </summary>
@@ -136,21 +152,74 @@ public class CharacterController : MonoBehaviour
     /// </summary>
     void FollowMouse()
     {
-        if(isValidTarget())
+        Ray heightRay = new Ray(heightDetectorOrigin, Vector3.down);
+        //Y target is the result of a raycast downwards from Heigh Detector Origin.
+        Physics.Raycast(heightRay, out hDetectorHit, MAX_RAY_LENGTH, GlobalConstants.walkable_Mask);
+
+        if (isValidTarget())
         {
-            transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
+            lastValidPoint = hDetectorHit;
         }
+        //Calculate xz and y separately to have control over vertical speed independantly
+        Vector3 frameTarget;
+        Vector3 HframeTarget = Vector3.MoveTowards(transform.position, lastValidPoint.point, hSpeed * Time.deltaTime);
+        Vector3 VframeTarget = Vector3.MoveTowards(transform.position, lastValidPoint.point, vSpeed * Time.deltaTime);
+        //Add a vertical offset to keep the body off the ground
+        VframeTarget.y += bodyFloatHeight;
+
+        frameTarget = HframeTarget;
+        frameTarget.y = VframeTarget.y;
+        transform.position = frameTarget;
+       
     }
 
+    /// <summary>
+    /// Place the raycast origin to detect sudden height changes
+    /// </summary>
+    void PlaceHeighDetectorOrigin()
+    {
+        heightDetectorOrigin = transform.position + heightDetectorOffset;
+        heightDetectorOrigin = VectorUtils.RotatePointAroundPivot(heightDetectorOrigin, transform.position, new Vector3(0, body.rotation.eulerAngles.y, 0));
+    }
+
+    [ShowNativeProperty]
+    float distanceFromTarget => Vector3.Distance(transform.position, target);
+    [ShowNativeProperty]
+    bool targetNotReached => distanceFromTarget >= targetDistanceToStop;
+    [ShowNativeProperty]
+    float verticalDiffPlayerTarget => Mathf.Abs(target.y - transform.position.y);
+    [ShowNativeProperty]
+    bool targetInVerticalRange => verticalDiffPlayerTarget < targetMaxVerticalDistance;
+    [ShowNativeProperty]
+    float targetAngle => VERTICAL_ANGLE_DEGREES - (VERTICAL_ANGLE_DEGREES * Vector3.Dot(Vector3.up, MouseController.targetNormal));
+    [ShowNativeProperty]
+    bool targetIsFlat => targetAngle <= climbableSurfaceAngle;
+    [ShowNativeProperty]
+    float nextStepHeight => Mathf.Abs(transform.position.y - hDetectorHit.point.y);
+    [ShowNativeProperty]
+    bool stepInRange => nextStepHeight < maxStepHeight;
     /// <summary>
     /// Check if mouse target is valid
     /// </summary>
     /// <returns>if the target is valid</returns>
     bool isValidTarget()
     {
-        bool targetNotReached = Vector3.Distance(transform.position, target) >= targetDistanceToStop;
-        bool targetInRange = Mathf.Abs(target.y - transform.position.y) < targetMaxVerticalDistance;
-        bool targetIsFlat = VERTICAL_ANGLE_DEGREES - (VERTICAL_ANGLE_DEGREES*Vector3.Dot(Vector3.up, MouseController.targetNormal)) <= climbableSurfaceAngle;
-        return targetNotReached && targetInRange && targetIsFlat;
+        return targetNotReached && targetInVerticalRange && targetIsFlat && stepInRange;
+    }
+
+    private void OnDrawGizmos()
+    {
+        //Height detector in front of the character
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawSphere(heightDetectorOrigin, 0.1f);
+
+        Gizmos.color = Color.blue;
+        Gizmos.DrawLine(hDetectorHit.point, heightDetectorOrigin);
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(groundHit.point, hDetectorHit.point);
+
+        Gizmos.color = Color.magenta;
+        Gizmos.DrawLine(transform.position, groundHit.point);
+
     }
 }

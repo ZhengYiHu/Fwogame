@@ -112,7 +112,7 @@ Transform:
   m_GameObject: {fileID: 194713043563394204}
   serializedVersion: 2
   m_LocalRotation: {x: -0.0034905854, y: 0, z: 0, w: 0.9999939}
-  m_LocalPosition: {x: 0, y: 0.13021119, z: 0.17615248}
+  m_LocalPosition: {x: 0, y: -0.178, z: 0.17615248}
   m_LocalScale: {x: 0.040000003, y: 0.040000007, z: 0.040000007}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -792,37 +792,6 @@ MonoBehaviour:
   offset: {x: 0, y: 0, z: 0.05}
   rayCastOffset: {x: 0, y: 0.5, z: 0}
   endEffectorTarget: {fileID: 2101467758927928459}
---- !u!1 &2705300437266293945
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5168648357239459939}
-  m_Layer: 0
-  m_Name: Character
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &5168648357239459939
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2705300437266293945}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 0.10000001, z: 0.212}
-  m_LocalScale: {x: 0.19999996, y: 0.20000002, z: 0.19999999}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8624074793013569331}
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &2968998128809691145
 GameObject:
   m_ObjectHideFlags: 0
@@ -6598,7 +6567,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5168648357239459939}
   - {fileID: 5036762082194927903}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6614,10 +6582,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed15873cf356b4c4aa4ec6d0d5f9d285, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
+  hSpeed: 1.2
+  vSpeed: 5.2
+  maxStepHeight: 0.3
   targetDistanceToStop: 0.3
   targetMaxVerticalDistance: 1
+  heightDetectorZOffset: 0.3
+  heightChangeDistance: 0.5
   climbableSurfaceAngle: 65
+  groundedDistance: 0.3
   targetOffset: {x: 0, y: 0.2, z: 0}
   body: {fileID: 5036762082194927903}
   bodyWobble:

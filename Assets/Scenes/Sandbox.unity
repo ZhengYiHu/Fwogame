@@ -2972,15 +2972,40 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 638380986424411775, guid: 3d0297f51bca74b1d99cf0b7f94c73c9,
+    - target: {fileID: 2385156625242460104, guid: 3d0297f51bca74b1d99cf0b7f94c73c9,
         type: 3}
-      propertyPath: prewarm
-      value: 1
+      propertyPath: vSpeed
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2385156625242460104, guid: 3d0297f51bca74b1d99cf0b7f94c73c9,
         type: 3}
-      propertyPath: m_Enabled
-      value: 1
+      propertyPath: maxStepHeight
+      value: 1.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2385156625242460104, guid: 3d0297f51bca74b1d99cf0b7f94c73c9,
+        type: 3}
+      propertyPath: targetOffset.y
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2385156625242460104, guid: 3d0297f51bca74b1d99cf0b7f94c73c9,
+        type: 3}
+      propertyPath: bodyFloatHeight
+      value: 0.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 2385156625242460104, guid: 3d0297f51bca74b1d99cf0b7f94c73c9,
+        type: 3}
+      propertyPath: heightChangeDistance
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2385156625242460104, guid: 3d0297f51bca74b1d99cf0b7f94c73c9,
+        type: 3}
+      propertyPath: heightDetectorOffset.y
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2385156625242460104, guid: 3d0297f51bca74b1d99cf0b7f94c73c9,
+        type: 3}
+      propertyPath: targetMaxVerticalDistance
+      value: 1.3
       objectReference: {fileID: 0}
     - target: {fileID: 8241537244351993132, guid: 3d0297f51bca74b1d99cf0b7f94c73c9,
         type: 3}

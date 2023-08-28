@@ -6,9 +6,9 @@ public class MouseController : MonoBehaviour
 {
     float rayMaxLength = 20f;
     static public Vector3 targetPoint;
-    static public Vector3 lookTargetPoint;
     static public Vector3 targetNormal;
     static public Ray mouseRay;
+
     private void Update()
     {
         mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -17,7 +17,6 @@ public class MouseController : MonoBehaviour
         if (rayHits)
         {
             targetPoint = raycastHit.point;
-            lookTargetPoint = raycastHit.point;
             targetNormal = raycastHit.normal;
         }
 
