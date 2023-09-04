@@ -1,2 +1,2 @@
-# WaterStrider
- Minimal 3D game on water strider
+# Fwogame
+ Minimal 3D game on fwogs!
