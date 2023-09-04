@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 8d7e24d7c87d1476fbce009645b73006
+guid: 75594d900e0e8429db7cbc2dc897eaec
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,7 +9,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Pixellari
+  - Antipasto Pro
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0

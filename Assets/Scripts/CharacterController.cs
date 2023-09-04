@@ -67,6 +67,7 @@ public class CharacterController : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (!Game.Playing) return;
         bodyPositionsBuffer = Vector3.zero;
 
         IsGrounded();

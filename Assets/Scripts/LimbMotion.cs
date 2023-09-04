@@ -36,6 +36,7 @@ public class LimbMotion : MonoBehaviour
 
     private void Update()
     {
+        if (!Game.Playing) return;
         Ray ray = new Ray(WorldTarget + rayCastOffset, Vector3.down);
         //Keep end effector on the last position
         var newLocalPosition = transform.InverseTransformPoint(worldEndPosition);

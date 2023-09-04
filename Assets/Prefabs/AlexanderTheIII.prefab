@@ -95,7 +95,6 @@ GameObject:
   - component: {fileID: 5036762082194927903}
   - component: {fileID: 1972044002875855793}
   - component: {fileID: 8370787095778934608}
-  - component: {fileID: 953279346622838734}
   m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
@@ -173,29 +172,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &953279346622838734
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 194713043563394204}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 1.21
-  m_Height: 3.7
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.41, z: 0}
 --- !u!1 &317896782403424025
 GameObject:
   m_ObjectHideFlags: 0
@@ -6547,7 +6523,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8624074793013569331}
   - component: {fileID: 2385156625242460104}
-  m_Layer: 0
+  - component: {fileID: 1893840324683873780}
+  - component: {fileID: 7972482084625631077}
+  m_Layer: 6
   m_Name: AlexanderTheIII
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6587,8 +6565,7 @@ MonoBehaviour:
   maxStepHeight: 0.3
   targetDistanceToStop: 0.3
   targetMaxVerticalDistance: 1
-  heightDetectorZOffset: 0.3
-  heightChangeDistance: 0.5
+  heightDetectorOffset: {x: 0, y: 0.4, z: 0.3}
   climbableSurfaceAngle: 65
   groundedDistance: 0.3
   targetOffset: {x: 0, y: 0.2, z: 0}
@@ -6644,6 +6621,56 @@ MonoBehaviour:
   - {fileID: 5154471398758462680}
   - {fileID: 7878074351331888254}
   walkParticles: {fileID: 638380986424411775}
+--- !u!136 &1893840324683873780
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8241537244351993132}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.35
+  m_Height: 0.31
+  m_Direction: 1
+  m_Center: {x: 0, y: -0.24, z: 0.17}
+--- !u!54 &7972482084625631077
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8241537244351993132}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &8487098408433502619
 GameObject:
   m_ObjectHideFlags: 0
