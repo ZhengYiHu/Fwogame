@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Tree 2
-  m_Shader: {fileID: -6465566751694194690, guid: 2a8cf7ec759f248b2a8a39c05b9f38bc,
+  m_Shader: {fileID: -6465566751694194690, guid: 89ddd4cc7e1924da593a260555f2092b,
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -109,6 +109,7 @@ Material:
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
+    - _Frequency: 1
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
@@ -126,6 +127,7 @@ Material:
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
+    - _Strength: 0.05
     - _Surface: 0
     - _Value: 0.77
     - _WorkflowMode: 1
