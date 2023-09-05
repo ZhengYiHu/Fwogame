@@ -109,7 +109,7 @@ Material:
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
-    - _Frequency: 0.704
+    - _Frequency: 0.37
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
@@ -127,9 +127,12 @@ Material:
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
-    - _Strength: 0.06
+    - _Strength: 1
     - _Surface: 0
+    - _TrampleRange: 0.76
+    - _TrampleStrength: 0.3
     - _Value: 0.675
+    - _WindStrength: 0.1
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
