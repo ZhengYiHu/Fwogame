@@ -19,4 +19,17 @@ void CalculateTrample_float(float3 WorldPosition, out float distance) {
     }
 #endif
 }
+
+
+void GetPlayerPos_float(out float3 playerPos) {
+    playerPos = (0,0,0,0);
+#ifndef SHADERGRAPH_PREVIEW
+    // For each trample position
+    for (int i = 0; i < _NumGrassTramplePositions; i++) {
+        // Find the distance to the trample position
+        playerPos = _GrassTramplePositions[i].xyz;
+    }
+#endif
+}
+
 #endif
